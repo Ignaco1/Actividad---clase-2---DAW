@@ -1,0 +1,104 @@
+/* ── HEADER.CSS — Cabecera y navegación ── */
+
+/* Barra superior con fecha */
+.top-bar {
+    background-color: #cc0000;
+    color: white;
+    font-size: 12px;
+    padding: 5px 20px;
+    text-align: right;
+}
+
+/* Cabecera principal con nombre del diario */
+.site-header {
+    background-color: #ffffff;
+    border-bottom: 4px solid #cc0000;
+    padding: 15px 20px;
+    text-align: center;
+}
+
+.site-header .nombre-diario {
+    font-size: 42px;
+    font-weight: 900;
+    color: #cc0000;
+    letter-spacing: -1px;
+    text-transform: uppercase;
+}
+
+.site-header .eslogan {
+    font-size: 13px;
+    color: #777777;
+    font-style: italic;
+}
+
+/* ── NAVEGACIÓN DESKTOP ── */
+.nav-desktop {
+    background-color: #111111;
+    padding: 0 20px;
+}
+
+.nav-desktop ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+}
+
+.nav-desktop ul li a {
+    display: block;
+    color: white;
+    padding: 12px 16px;
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    text-decoration: none;
+}
+
+.nav-desktop ul li a:hover {
+    background-color: #cc0000;
+    color: white;
+    text-decoration: none;
+}
+
+/* ── ÍCONO HAMBURGUESA (solo mobile) ── */
+.nav-mobile {
+    display: none;
+    background-color: #111111;
+    padding: 12px 20px;
+}
+
+.hamburguesa {
+    font-size: 24px;
+    color: white;
+    cursor: pointer;
+}
+
+/* ── MEDIA QUERIES HEADER ── */
+
+/* Tablet */
+@media (max-width: 768px) {
+    .site-header .nombre-diario {
+        font-size: 32px;
+    }
+
+    .nav-desktop ul li a {
+        padding: 10px 10px;
+        font-size: 12px;
+    }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+    .site-header .nombre-diario {
+        font-size: 26px;
+    }
+
+    .nav-desktop {
+        display: none;
+    }
+
+    .nav-mobile {
+        display: block;
+    }
+}

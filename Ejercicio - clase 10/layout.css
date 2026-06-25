@@ -1,0 +1,208 @@
+/* ── LAYOUT.CSS — Estructura principal de la página ── */
+
+.contenedor {
+    width: 92%;
+    max-width: 1200px;
+    margin: 20px auto;
+}
+
+/* ── NOTICIAS PRINCIPALES (fila superior) ── */
+.noticias-principales {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+/* Noticia destacada grande */
+.noticia-destacada {
+    background-color: #ffffff;
+    border: 1px solid #dddddd;
+    padding: 15px;
+}
+
+.noticia-destacada .categoria-tag {
+    background-color: #cc0000;
+    color: white;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    display: inline-block;
+    margin-bottom: 10px;
+}
+
+.noticia-destacada h2 {
+    font-size: 24px;
+    margin: 10px 0;
+    color: #111111;
+}
+
+.noticia-destacada h2 a {
+    color: #111111;
+}
+
+.noticia-destacada h2 a:hover {
+    color: #cc0000;
+    text-decoration: none;
+}
+
+.noticia-destacada p {
+    font-size: 15px;
+    color: #444444;
+    margin: 8px 0;
+}
+
+.leer-mas {
+    display: inline-block;
+    margin-top: 10px;
+    color: #cc0000;
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.leer-mas:hover {
+    text-decoration: underline;
+}
+
+/* ── FILA DE NOTICIAS SECUNDARIAS ── */
+.fila-secundarias {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.noticia-secundaria {
+    background-color: #ffffff;
+    border: 1px solid #dddddd;
+    padding: 12px;
+}
+
+.noticia-secundaria h3 {
+    font-size: 16px;
+    margin: 0 0 6px 0;
+}
+
+.noticia-secundaria h3 a {
+    color: #111111;
+}
+
+.noticia-secundaria h3 a:hover {
+    color: #cc0000;
+    text-decoration: none;
+}
+
+.noticia-secundaria .categoria-tag {
+    background-color: #cc0000;
+    color: white;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    padding: 2px 6px;
+    display: inline-block;
+    margin-bottom: 6px;
+}
+
+/* ── ÁREA PRINCIPAL + SIDEBAR ── */
+.area-contenido {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.columna-principal {
+    background-color: #ffffff;
+    border: 1px solid #dddddd;
+    padding: 20px;
+}
+
+.sidebar {
+    background-color: #ffffff;
+    border: 1px solid #dddddd;
+    padding: 15px;
+}
+
+.sidebar h4 {
+    font-size: 14px;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-bottom: 3px solid #cc0000;
+    padding-bottom: 8px;
+    margin-bottom: 12px;
+    color: #111111;
+}
+
+/* ── PUBLICIDAD ── */
+.publicidad {
+    background-color: #eeeeee;
+    border: 1px dashed #aaaaaa;
+    text-align: center;
+    padding: 20px;
+    margin: 15px 0;
+    color: #888888;
+    font-size: 12px;
+    font-style: italic;
+}
+
+.publicidad-banner {
+    background-color: #eeeeee;
+    border: 1px dashed #aaaaaa;
+    text-align: center;
+    padding: 30px 20px;
+    margin-bottom: 20px;
+    color: #888888;
+    font-size: 12px;
+    font-style: italic;
+}
+
+/* ── MEDIA QUERIES LAYOUT ── */
+
+/* Tablet */
+@media (max-width: 768px) {
+    .contenedor {
+        width: 95%;
+    }
+
+    .noticia-destacada h2 {
+        font-size: 20px;
+    }
+}
+
+/* Desktop y mayor: activamos flex horizontal */
+@media (min-width: 769px) {
+    .noticias-principales {
+        flex-direction: row;
+    }
+
+    .noticia-destacada {
+        flex: 2;
+    }
+
+    .noticia-destacada-secundaria {
+        flex: 1;
+    }
+
+    .fila-secundarias {
+        flex-direction: row;
+    }
+
+    .noticia-secundaria {
+        flex: 1;
+    }
+
+    .area-contenido {
+        flex-direction: row;
+    }
+
+    .columna-principal {
+        flex: 3;
+    }
+
+    .sidebar {
+        flex: 1;
+    }
+}

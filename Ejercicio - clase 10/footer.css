@@ -1,0 +1,51 @@
+/* ── FOOTER.CSS ── */
+
+.site-footer {
+    background-color: #111111;
+    color: #aaaaaa;
+    padding: 30px 20px;
+    margin-top: 30px;
+    font-size: 13px;
+}
+
+.footer-inner {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.footer-nombre {
+    font-size: 22px;
+    font-weight: 900;
+    color: #cc0000;
+    text-transform: uppercase;
+}
+
+.footer-links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+}
+
+.footer-links li a {
+    color: #aaaaaa;
+    font-size: 12px;
+    text-decoration: none;
+}
+
+.footer-links li a:hover {
+    color: white;
+    text-decoration: none;
+}
+
+.footer-copy {
+    color: #666666;
+    font-size: 11px;
+}

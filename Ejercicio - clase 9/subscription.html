@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Suscripción - El Cronista Digital</title>
+    <link rel="stylesheet" type="text/css" href="css/normalize.css">
+    <link rel="stylesheet" type="text/css" href="css/base.css">
+    <link rel="stylesheet" type="text/css" href="css/header.css">
+    <link rel="stylesheet" type="text/css" href="css/footer.css">
+    <style>
+
+        /* ── FORMULARIO ── */
+        .seccion-suscripcion {
+            width: 92%;
+            max-width: 900px;
+            margin: 40px auto;
+            background-color: #ffffff;
+            border: 1px solid #dddddd;
+            padding: 40px;
+        }
+
+        .titulo-hola {
+            font-size: 52px;
+            font-weight: 900;
+            text-transform: uppercase;
+            color: #111111;
+            margin-bottom: 8px;
+        }
+
+        .titulo-hola span { color: #cc0000; }
+
+        .subtitulo-form {
+            font-size: 14px;
+            color: #777777;
+            margin-bottom: 30px;
+            border-bottom: 3px solid #cc0000;
+            padding-bottom: 15px;
+        }
+
+        .form-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        @media (min-width: 769px) {
+            .form-grid { flex-direction: row; flex-wrap: wrap; }
+            .form-group { width: calc(50% - 10px); }
+            .form-group-full { width: 100%; display: flex; justify-content: center; }
+        }
+
+        .form-group { display: flex; flex-direction: column; gap: 5px; }
+
+        .form-group label {
+            font-size: 13px;
+            font-weight: 700;
+            color: #111111;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .form-group input {
+            padding: 12px 40px 12px 12px;
+            border: 2px solid #cccccc;
+            font-size: 15px;
+            font-family: Arial, Helvetica, sans-serif;
+            outline: none;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .form-group input:focus { border-color: #3a7bd5; }
+        .form-group.valido input { border-color: #28a745; }
+        .form-group.invalido input { border-color: #cc0000; }
+
+        .input-wrapper { position: relative; }
+        .input-wrapper input { padding-right: 40px; }
+
+        .icono {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 18px;
+            display: none;
+        }
+
+        .form-group.valido .icono-ok { display: block; color: #28a745; }
+        .form-group.invalido .icono-error { display: block; color: #cc0000; }
+
+        .mensaje-error { font-size: 12px; color: #cc0000; font-family: Arial; min-height: 16px; }
+        .form-group.invalido label { color: #cc0000; }
+
+        .boton-enviar {
+            background-color: #cc0000;
+            color: white;
+            border: none;
+            padding: 14px 60px;
+            font-size: 16px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        .boton-enviar:hover { background-color: #aa0000; }
+
+        /* ── MODAL ── */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-overlay.activo {
+            display: flex;
+        }
+
+        .modal-caja {
+            background-color: #ffffff;
+            border-top: 5px solid #cc0000;
+            padding: 40px;
+            max-width: 550px;
+            width: 90%;
+            position: relative;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .modal-caja.exito { border-top-color: #28a745; }
+        .modal-caja.error { border-top-color: #cc0000; }
+
+        .modal-titulo {
+            font-size: 22px;
+            font-weight: 900;
+            text-transform: uppercase;
+            margin-bottom: 15px;
+            color: #111111;
+        }
+
+        .modal-titulo.exito { color: #28a745; }
+        .modal-titulo.error { color: #cc0000; }
+
+        .modal-cuerpo {
+            font-family: Georgia, serif;
+            font-size: 15px;
+            color: #333333;
+            line-height: 1.7;
+        }
+
+        .modal-datos {
+            background-color: #f4f4f4;
+            border-left: 4px solid #cc0000;
+            padding: 15px;
+            margin-top: 15px;
+            font-family: monospace;
+            font-size: 13px;
+            color: #222222;
+            word-break: break-all;
+        }
+
+        .modal-cerrar {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 22px;
+            cursor: pointer;
+            color: #777777;
+            background: none;
+            border: none;
+            font-weight: 700;
+        }
+
+        .modal-cerrar:hover { color: #cc0000; }
+
+        /* ── DATOS GUARDADOS ── */
+        .datos-guardados {
+            background-color: #fff8e1;
+            border: 1px solid #ffc107;
+            border-left: 4px solid #ffc107;
+            padding: 15px 20px;
+            margin-bottom: 25px;
+            font-size: 13px;
+            font-family: Arial, Helvetica, sans-serif;
+            color: #555555;
+        }
+
+        .datos-guardados strong {
+            color: #333333;
+            display: block;
+            margin-bottom: 6px;
+            font-size: 14px;
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- BARRA SUPERIOR -->
+    <div class="top-bar">
+        Jueves 28 de mayo de 2026 &nbsp;|&nbsp; Buenos Aires, Argentina
+    </div>
+
+    <!-- CABECERA -->
+    <header class="site-header">
+        <div class="nombre-diario">
+            <a href="index.html" style="color:#cc0000; text-decoration:none;">El Cronista Digital</a>
+        </div>
+        <div class="eslogan">La información que importa, cuando importa</div>
+    </header>
+
+    <!-- NAVEGACIÓN DESKTOP -->
+    <nav class="nav-desktop">
+        <ul>
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="#">Política</a></li>
+            <li><a href="#">Economía</a></li>
+            <li><a href="#">Tecnología</a></li>
+            <li><a href="#">Deportes</a></li>
+            <li><a href="#">Cultura</a></li>
+            <li><a href="#">Mundo</a></li>
+            <li><a href="#">Opinión</a></li>
+        </ul>
+    </nav>
+
+    <!-- NAVEGACIÓN MOBILE -->
+    <nav class="nav-mobile">
+        <span class="hamburguesa">&#9776;</span>
+    </nav>
+
+    <!-- MODAL -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal-caja" id="modalCaja">
+            <button class="modal-cerrar" id="modalCerrar">&times;</button>
+            <div class="modal-titulo" id="modalTitulo"></div>
+            <div class="modal-cuerpo" id="modalCuerpo"></div>
+            <div class="modal-datos" id="modalDatos" style="display:none;"></div>
+        </div>
+    </div>
+
+    <!-- FORMULARIO -->
+    <div class="seccion-suscripcion">
+
+        <h1 class="titulo-hola">HOLA <span id="nombreDinamico"></span></h1>
+        <p class="subtitulo-form">Completá el formulario para suscribirte a El Cronista Digital y acceder a contenido exclusivo.</p>
+
+        <!-- Datos guardados en localStorage -->
+        <div class="datos-guardados" id="datosGuardados" style="display:none;">
+            <strong>&#128203; Datos de tu última suscripción guardados:</strong>
+            <span id="textoGuardado"></span>
+        </div>
+
+        <form id="formSuscripcion" novalidate>
+            <div class="form-grid">
+
+                <div class="form-group" id="grupo-nombre">
+                    <label for="nombre">Nombre completo</label>
+                    <div class="input-wrapper">
+                        <input type="text" id="nombre" placeholder="Ej: Juan Pérez">
+                        <span class="icono icono-ok">&#10004;</span>
+                        <span class="icono icono-error">&#10008;</span>
+                    </div>
+                    <span class="mensaje-error" id="error-nombre"></span>
+                </div>
+
+                <div class="form-group" id="grupo-email">
+                    <label for="email">Email</label>
+                    <div class="input-wrapper">
+                        <input type="email" id="email" placeholder="Ej: juan@email.com">
+                        <span class="icono icono-ok">&#10004;</span>
+                        <span class="icono icono-error">&#10008;</span>
+                    </div>
+                    <span class="mensaje-error" id="error-email"></span>
+                </div>
+
+                <div class="form-group" id="grupo-password">
+                    <label for="password">Contraseña</label>
+                    <div class="input-wrapper">
+                        <input type="password" id="password" placeholder="Al menos 8 caracteres con letras y números">
+                        <span class="icono icono-ok">&#10004;</span>
+                        <span class="icono icono-error">&#10008;</span>
+                    </div>
+                    <span class="mensaje-error" id="error-password"></span>
+                </div>
+
+                <div class="form-group" id="grupo-password2">
+                    <label for="password2">Repetir contraseña</label>
+                    <div class="input-wrapper">
+                        <input type="password" id="password2" placeholder="Repetí tu contraseña">
+                        <span class="icono icono-ok">&#10004;</span>
+                        <span class="icono icono-error">&#10008;</span>
+                    </div>
+                    <span class="mensaje-error" id="error-password2"></span>
+                </div>
+
+                <div class="form-group" id="grupo-edad">
+                    <label for="edad">Edad</label>
+                    <div class="input-wrapper">
+                        <input type="number" id="edad" placeholder="Mayor o igual a 18">
+                        <span class="icono icono-ok">&#10004;</span>
+                        <span class="icono icono-error">&#10008;</span>
+                    </div>
+                    <span class="mensaje-error" id="error-edad"></span>
+                </div>
+
+                <div class="form-group" id="grupo-telefono">
+                    <label for="telefono">Teléfono</label>
+                    <div class="input-wrapper">
+                        <input type="text" id="telefono" placeholder="Ej: 3414567890">
+                        <span class="icono icono-ok">&#10004;</span>
+                        <span class="icono icono-error">&#10008;</span>
+                    </div>
+                    <span class="mensaje-error" id="error-telefono"></span>
+                </div>
+
+                <div class="form-group" id="grupo-direccion">
+                    <label for="direccion">Dirección</label>
+                    <div class="input-wrapper">
+                        <input type="text" id="direccion" placeholder="Ej: San Martín 1234">
+                        <span class="icono icono-ok">&#10004;</span>
+                        <span class="icono icono-error">&#10008;</span>
+                    </div>
+                    <span class="mensaje-error" id="error-direccion"></span>
+                </div>
+
+                <div class="form-group" id="grupo-ciudad">
+                    <label for="ciudad">Ciudad</label>
+                    <div class="input-wrapper">
+                        <input type="text" id="ciudad" placeholder="Ej: Rosario">
+                        <span class="icono icono-ok">&#10004;</span>
+                        <span class="icono icono-error">&#10008;</span>
+                    </div>
+                    <span class="mensaje-error" id="error-ciudad"></span>
+                </div>
+
+                <div class="form-group" id="grupo-cp">
+                    <label for="cp">Código Postal</label>
+                    <div class="input-wrapper">
+                        <input type="text" id="cp" placeholder="Ej: 2000">
+                        <span class="icono icono-ok">&#10004;</span>
+                        <span class="icono icono-error">&#10008;</span>
+                    </div>
+                    <span class="mensaje-error" id="error-cp"></span>
+                </div>
+
+                <div class="form-group" id="grupo-dni">
+                    <label for="dni">DNI</label>
+                    <div class="input-wrapper">
+                        <input type="text" id="dni" placeholder="Ej: 40123456">
+                        <span class="icono icono-ok">&#10004;</span>
+                        <span class="icono icono-error">&#10008;</span>
+                    </div>
+                    <span class="mensaje-error" id="error-dni"></span>
+                </div>
+
+                <div class="form-group-full">
+                    <button type="submit" class="boton-enviar">Enviar</button>
+                </div>
+
+            </div>
+        </form>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="site-footer">
+        <div class="footer-inner">
+            <div class="footer-nombre">El Cronista Digital</div>
+            <ul class="footer-links">
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="#">Política</a></li>
+                <li><a href="#">Economía</a></li>
+                <li><a href="#">Contacto</a></li>
+                <li><a href="#">Aviso legal</a></li>
+            </ul>
+            <p class="footer-copy">&copy; 2026 El Cronista Digital &mdash; Trabajo Práctico DAW</p>
+        </div>
+    </footer>
+
+    <script>
+
+    // ============================================================
+    // BONUS: título dinámico
+    // ============================================================
+    var inputNombre = document.getElementById("nombre")
+
+    inputNombre.addEventListener("keydown", function(){
+        setTimeout(function(){
+            document.getElementById("nombreDinamico").innerText = inputNombre.value.toUpperCase()
+        }, 0)
+    })
+
+    inputNombre.addEventListener("focus", function(){
+        document.getElementById("nombreDinamico").innerText = inputNombre.value.toUpperCase()
+    })
+
+    // ============================================================
+    // HELPERS DE VALIDACIÓN
+    // ============================================================
+    function mostrarError(grupoId, errorId, mensaje) {
+        var grupo = document.getElementById(grupoId)
+        var error = document.getElementById(errorId)
+        grupo.classList.remove("valido")
+        grupo.classList.add("invalido")
+        error.innerText = mensaje
+    }
+
+    function mostrarValido(grupoId, errorId) {
+        var grupo = document.getElementById(grupoId)
+        var error = document.getElementById(errorId)
+        grupo.classList.remove("invalido")
+        grupo.classList.add("valido")
+        error.innerText = ""
+    }
+
+    function limpiarEstado(grupoId, errorId) {
+        var grupo = document.getElementById(grupoId)
+        var error = document.getElementById(errorId)
+        grupo.classList.remove("invalido", "valido")
+        error.innerText = ""
+    }
+
+    // ============================================================
+    // VALIDACIONES
+    // ============================================================
+    function validarNombre() {
+        var valor = document.getElementById("nombre").value.trim()
+        if (valor.length <= 6 || valor.indexOf(" ") === -1) {
+            mostrarError("grupo-nombre", "error-nombre", "El nombre debe tener más de 6 letras y al menos un espacio.")
+            return false
+        }
+        mostrarValido("grupo-nombre", "error-nombre")
+        return true
+    }
+
+    function validarEmail() {
+        var valor = document.getElementById("email").value.trim()
+        var regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+        if (!regex.test(valor)) {
+            mostrarError("grupo-email", "error-email", "Ingresá un email válido. Ej: juan@email.com")
+            return false
+        }
+        mostrarValido("grupo-email", "error-email")
+        return true
+    }
+
+    function validarPassword() {
+        var valor = document.getElementById("password").value
+        var regex = /^(?=.*[a-zA-Z])(?=.*[0-9]).{8,}$/
+        if (!regex.test(valor)) {
+            mostrarError("grupo-password", "error-password", "La contraseña debe tener al menos 8 caracteres con letras y números.")
+            return false
+        }
+        mostrarValido("grupo-password", "error-password")
+        return true
+    }
+
+    function validarPassword2() {
+        var pass1 = document.getElementById("password").value
+        var pass2 = document.getElementById("password2").value
+        if (pass1 !== pass2 || pass2 === "") {
+            mostrarError("grupo-password2", "error-password2", "Ambas contraseñas deben ser iguales.")
+            return false
+        }
+        mostrarValido("grupo-password2", "error-password2")
+        return true
+    }
+
+    function validarEdad() {
+        var valor = parseInt(document.getElementById("edad").value)
+        if (isNaN(valor) || valor < 18) {
+            mostrarError("grupo-edad", "error-edad", "Debés ser mayor de 18 años para suscribirte.")
+            return false
+        }
+        mostrarValido("grupo-edad", "error-edad")
+        return true
+    }
+
+    function validarTelefono() {
+        var valor = document.getElementById("telefono").value
+        var regex = /^\d{7,}$/
+        if (!regex.test(valor)) {
+            mostrarError("grupo-telefono", "error-telefono", "El teléfono debe tener al menos 7 dígitos. Sin espacios, guiones ni paréntesis.")
+            return false
+        }
+        mostrarValido("grupo-telefono", "error-telefono")
+        return true
+    }
+
+    function validarDireccion() {
+        var valor = document.getElementById("direccion").value.trim()
+        var regex = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9]+ [a-zA-ZáéíóúÁÉÍÓÚñÑ0-9]+/
+        if (valor.length < 5 || !regex.test(valor)) {
+            mostrarError("grupo-direccion", "error-direccion", "La dirección debe tener al menos 5 caracteres con letras, números y un espacio.")
+            return false
+        }
+        mostrarValido("grupo-direccion", "error-direccion")
+        return true
+    }
+
+    function validarCiudad() {
+        var valor = document.getElementById("ciudad").value.trim()
+        if (valor.length < 3) {
+            mostrarError("grupo-ciudad", "error-ciudad", "La ciudad debe tener al menos 3 caracteres.")
+            return false
+        }
+        mostrarValido("grupo-ciudad", "error-ciudad")
+        return true
+    }
+
+    function validarCP() {
+        var valor = document.getElementById("cp").value.trim()
+        if (valor.length < 3) {
+            mostrarError("grupo-cp", "error-cp", "El código postal debe tener al menos 3 caracteres.")
+            return false
+        }
+        mostrarValido("grupo-cp", "error-cp")
+        return true
+    }
+
+    function validarDNI() {
+        var valor = document.getElementById("dni").value.trim()
+        var regex = /^\d{7,8}$/
+        if (!regex.test(valor)) {
+            mostrarError("grupo-dni", "error-dni", "El DNI debe tener 7 u 8 dígitos.")
+            return false
+        }
+        mostrarValido("grupo-dni", "error-dni")
+        return true
+    }
+
+    // ============================================================
+    // EVENTOS BLUR Y FOCUS
+    // ============================================================
+    document.getElementById("nombre").addEventListener("blur", validarNombre)
+    document.getElementById("email").addEventListener("blur", validarEmail)
+    document.getElementById("password").addEventListener("blur", validarPassword)
+    document.getElementById("password2").addEventListener("blur", validarPassword2)
+    document.getElementById("edad").addEventListener("blur", validarEdad)
+    document.getElementById("telefono").addEventListener("blur", validarTelefono)
+    document.getElementById("direccion").addEventListener("blur", validarDireccion)
+    document.getElementById("ciudad").addEventListener("blur", validarCiudad)
+    document.getElementById("cp").addEventListener("blur", validarCP)
+    document.getElementById("dni").addEventListener("blur", validarDNI)
+
+    document.getElementById("nombre").addEventListener("focus", function(){ limpiarEstado("grupo-nombre", "error-nombre") })
+    document.getElementById("email").addEventListener("focus", function(){ limpiarEstado("grupo-email", "error-email") })
+    document.getElementById("password").addEventListener("focus", function(){ limpiarEstado("grupo-password", "error-password") })
+    document.getElementById("password2").addEventListener("focus", function(){ limpiarEstado("grupo-password2", "error-password2") })
+    document.getElementById("edad").addEventListener("focus", function(){ limpiarEstado("grupo-edad", "error-edad") })
+    document.getElementById("telefono").addEventListener("focus", function(){ limpiarEstado("grupo-telefono", "error-telefono") })
+    document.getElementById("direccion").addEventListener("focus", function(){ limpiarEstado("grupo-direccion", "error-direccion") })
+    document.getElementById("ciudad").addEventListener("focus", function(){ limpiarEstado("grupo-ciudad", "error-ciudad") })
+    document.getElementById("cp").addEventListener("focus", function(){ limpiarEstado("grupo-cp", "error-cp") })
+    document.getElementById("dni").addEventListener("focus", function(){ limpiarEstado("grupo-dni", "error-dni") })
+
+    // ============================================================
+    // MODAL
+    // ============================================================
+    function abrirModal(tipo, titulo, cuerpo, datos) {
+        var overlay = document.getElementById("modalOverlay")
+        var caja = document.getElementById("modalCaja")
+        var tituloEl = document.getElementById("modalTitulo")
+        var cuerpoEl = document.getElementById("modalCuerpo")
+        var datosEl = document.getElementById("modalDatos")
+
+        caja.className = "modal-caja " + tipo
+        tituloEl.className = "modal-titulo " + tipo
+        tituloEl.innerText = titulo
+        cuerpoEl.innerText = cuerpo
+
+        if (datos) {
+            datosEl.innerText = JSON.stringify(datos, null, 2)
+            datosEl.style.display = "block"
+        } else {
+            datosEl.style.display = "none"
+        }
+
+        overlay.classList.add("activo")
+    }
+
+    function cerrarModal() {
+        document.getElementById("modalOverlay").classList.remove("activo")
+    }
+
+    document.getElementById("modalCerrar").addEventListener("click", cerrarModal)
+    document.getElementById("modalOverlay").addEventListener("click", function(e){
+        if (e.target === this) cerrarModal()
+    })
+
+    // ============================================================
+    // LOCALSTORAGE: cargar datos guardados al iniciar
+    // ============================================================
+    window.onload = function() {
+        var datosGuardados = localStorage.getItem("suscripcionCronista")
+        if (datosGuardados) {
+            var datos = JSON.parse(datosGuardados)
+            // Precargar campos
+            document.getElementById("nombre").value = datos.nombre || ""
+            document.getElementById("email").value = datos.email || ""
+            document.getElementById("edad").value = datos.edad || ""
+            document.getElementById("telefono").value = datos.telefono || ""
+            document.getElementById("direccion").value = datos.direccion || ""
+            document.getElementById("ciudad").value = datos.ciudad || ""
+            document.getElementById("cp").value = datos.cp || ""
+            document.getElementById("dni").value = datos.dni || ""
+
+            // Actualizar título dinámico
+            document.getElementById("nombreDinamico").innerText = (datos.nombre || "").toUpperCase()
+
+            // Mostrar aviso
+            var aviso = document.getElementById("datosGuardados")
+            var texto = document.getElementById("textoGuardado")
+            texto.innerText = "Nombre: " + datos.nombre + " | Email: " + datos.email + " | Ciudad: " + datos.ciudad
+            aviso.style.display = "block"
+        }
+    }
+
+    // ============================================================
+    // ENVÍO DEL FORMULARIO CON FETCH
+    // ============================================================
+    document.getElementById("formSuscripcion").addEventListener("submit", function(e) {
+        e.preventDefault()
+
+        var validaciones = [
+            validarNombre(),
+            validarEmail(),
+            validarPassword(),
+            validarPassword2(),
+            validarEdad(),
+            validarTelefono(),
+            validarDireccion(),
+            validarCiudad(),
+            validarCP(),
+            validarDNI()
+        ]
+
+        var todoBien = validaciones.every(function(v){ return v === true })
+
+        if (!todoBien) {
+            abrirModal("error", "❌ Error en el formulario", "Hay campos con errores. Revisá los campos marcados en rojo antes de enviar.", null)
+            return
+        }
+
+        // Armar objeto con los datos
+        var datosFormulario = {
+            nombre: document.getElementById("nombre").value,
+            email: document.getElementById("email").value,
+            password: document.getElementById("password").value,
+            edad: document.getElementById("edad").value,
+            telefono: document.getElementById("telefono").value,
+            direccion: document.getElementById("direccion").value,
+            ciudad: document.getElementById("ciudad").value,
+            cp: document.getElementById("cp").value,
+            dni: document.getElementById("dni").value
+        }
+
+        // Fetch POST a jsonplaceholder
+        fetch("https://jsonplaceholder.typicode.com/posts", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(datosFormulario)
+        })
+        .then(function(response) {
+            if (!response.ok) {
+                throw new Error("Error del servidor: " + response.status)
+            }
+            return response.json()
+        })
+        .then(function(respuesta) {
+            // Guardar en localStorage (sin password)
+            var datosGuardar = {
+                nombre: datosFormulario.nombre,
+                email: datosFormulario.email,
+                edad: datosFormulario.edad,
+                telefono: datosFormulario.telefono,
+                direccion: datosFormulario.direccion,
+                ciudad: datosFormulario.ciudad,
+                cp: datosFormulario.cp,
+                dni: datosFormulario.dni
+            }
+            localStorage.setItem("suscripcionCronista", JSON.stringify(datosGuardar))
+
+            // Mostrar modal de éxito con la respuesta
+            abrirModal(
+                "exito",
+                "✅ ¡Suscripción exitosa!",
+                "Tu suscripción fue procesada correctamente. Estos son los datos recibidos del servidor:",
+                respuesta
+            )
+        })
+        .catch(function(error) {
+            // Mostrar modal de error
+            abrirModal(
+                "error",
+                "❌ Error al suscribirse",
+                "Hubo un problema al procesar tu suscripción. Detalle del error: " + error.message,
+                null
+            )
+        })
+    })
+
+    </script>
+</body>
+</html>

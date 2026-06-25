@@ -1,0 +1,41 @@
+/* ── BASE.CSS — Variables, tipografía y estilos globales ── */
+
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #f4f4f4;
+    color: #222222;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+a {
+    text-decoration: none;
+    color: #cc0000;
+}
+
+a:hover {
+    color: #333333;
+    text-decoration: underline;
+}
+
+h1, h2, h3, h4 {
+    font-family: Arial, Helvetica, sans-serif;
+    color: #111111;
+    line-height: 1.2;
+}
+
+p {
+    font-family: Georgia, serif;
+    color: #333333;
+    font-size: 15px;
+}
